@@ -22,7 +22,7 @@ void complete(int id) {
   throw ArgumentError("Задача с $id не найдена");
 }
 void delete(int id) {
-  for (int i =0; i < _todos.lenght; i++) {
+  for (int i =0; i < _todos.length; i++) {
     if (_todos[i].id==id) {
       _todos.removeAt(i);
       return;

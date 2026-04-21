@@ -1,6 +1,11 @@
 import 'dart:io';
 import 'package:todo_app/todo_repository.dart';
 import 'package:todo_app/todo.dart';
+import 'package:ansicolor/ansicolor.dart';
+final AnsiPen greenPen=AnsiPen()..green();
+final AnsiPen redPen=AnsiPen()..red();
+final AnsiPen bluePen=AnsiPen()..blue();
+final AnsiPen yellowPen=AnsiPen()..yellow();
 
 void main() {
   TodoRepository repo = TodoRepository();
@@ -23,7 +28,7 @@ void main() {
 }
 
 void printMenu() {
-  print("Консольное приложение TODO");
+  print(yellowPen("Консольное приложение TODO"));
   print("Команды:");
   print(" add <текст>      -добавить задачу ");
   print(" list             -показать список");
@@ -58,48 +63,60 @@ void listCommand(TodoRepository repo) {
     print(todo);
   }
 }
-void doneCommand(TodoRepository repo, List<String> parts) {
+
+void doneCommand(
+  TodoRepository repo,
+  List<String> parts,
+) {
   if (parts.length < 2) {
     print("Ошибка: укажите id");
     return;
-    }
-    int id=int.parse(parts[1]);
-    repo.complete(id);
-    print("Задача отмечена выполненной");
+  }
+  int id = int.parse(parts[1]);
+  repo.complete(id);
+  print("Задача отмечена выполненной");
 }
-void deletecommand(TodoRepository repo, List<String> parts){
-  if (parts.length<2){
+
+void deletecommand(
+  TodoRepository repo,
+  List<String> parts,
+) {
+  if (parts.length < 2) {
     print("Ошибка: укажите id");
     return;
   }
-  int id=int.parse(parts[1]);
+  int id = int.parse(parts[1]);
   repo.delete(id);
   print("Задача удалена");
 }
-bool handleCommand(TodoRepository repo, String input){
-  List <String> parts=input.split(" ");
-  String command=parts[0].toLowerCase();
-  try{
-    switch(command){
+
+bool handleCommand(
+  TodoRepository repo,
+  String input,
+) {
+  List<String> parts = input.split(" ");
+  String command = parts[0].toLowerCase();
+  try {
+    switch (command) {
       case "add":
-      addCommand(repo, input);
-      break;
+        addCommand(repo, input);
+        break;
       case "list":
-      listCommand(repo);
-      break;
+        listCommand(repo);
+        break;
       case "done":
-      doneCommand(repo, parts);
-      break;
+        doneCommand(repo, parts);
+        break;
       case "delete":
-      deletecommand(repo, parts);
-      break;
+        deletecommand(repo, parts);
+        break;
       case "exit":
-      print("Выход из программы");
-      return true;
+        print("Выход из программы");
+        return true;
       default:
-      print("Неизвестная команда");
+        print("Неизвестная команда");
     }
-  } catch (e){
+  } catch (e) {
     print("Ошибка: $e");
   }
   return false;

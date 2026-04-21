@@ -4,7 +4,7 @@ String? name2=null;
 var count=0;
 var title='Учить Rust';
 var x=5;
-x='text';
+// x='text';
 final id=1;
 const appName='TodoApp';
 print('$name, $name2, $count, $title,$id, $appName');
